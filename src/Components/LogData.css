@@ -1,5 +1,6 @@
 .LogData .log-table-row {
   display: flex;
+  margin: 3%;
 }
 
 .LogData .log-table-col {
