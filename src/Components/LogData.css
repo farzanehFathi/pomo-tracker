@@ -1,0 +1,13 @@
+.LogData .log-table-row {
+  display: flex;
+}
+
+.LogData .log-table-col {
+  background-color: aqua;
+  width: 20%;
+  margin-right: 3%;
+}
+
+.LogData .log-table-col:last-child {
+  margin-right: 0;
+}
