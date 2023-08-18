@@ -6,11 +6,16 @@ export default function LogData() {
   const [itemDate, setItemDate] = useState("");
   const [itemCount, setItemCount] = useState("");
   const [itemDetail, setItemDetail] = useState("");
-  const [submittedData, setSubmittedData] = useState({});
+  const [submittedData, setSubmittedData] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSubmittedData({ itemDate, itemName, itemCount, itemDetail });
+    const newEntry = { itemDate, itemName, itemCount, itemDetail };
+    setSubmittedData([...submittedData, newEntry]);
+    setItemName("");
+    setItemDate("");
+    setItemCount("");
+    setItemDetail("");
   };
 
   return (
@@ -53,16 +58,16 @@ export default function LogData() {
         />
         <button type="submit">Add</button>
       </form>
-      {submittedData && (
-        <div className="log-table">
-          <div className="log-table-row">
-            <div className="log-table-col">{submittedData.itemDate}</div>
-            <div className="log-table-col">{submittedData.itemName}</div>
-            <div className="log-table-col">{submittedData.itemCount}</div>
-            <div className="log-table-col">{submittedData.itemDetail}</div>
+      <div className="log-table">
+        {submittedData.map((entry, index) => (
+          <div className="log-table-row" key={index}>
+            <div className="log-table-col">{entry.itemDate}</div>
+            <div className="log-table-col">{entry.itemName}</div>
+            <div className="log-table-col">{entry.itemCount}</div>
+            <div className="log-table-col">{entry.itemDetail}</div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
