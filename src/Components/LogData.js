@@ -2,43 +2,67 @@ import { useState } from "react";
 import "./LogData.css";
 
 export default function LogData() {
-  const [time, setTime] = useState(null);
-  const [item, setItem] = useState(null);
-
-  function handleChange(event) {
-    console.log(event);
-    // setTime(event.target().value);
-  }
+  const [itemName, setItemName] = useState("");
+  const [itemDate, setItemDate] = useState("");
+  const [itemCount, setItemCount] = useState("");
+  const [itemDetail, setItemDetail] = useState("");
+  const [submittedData, setSubmittedData] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleChange();
-    setItem("Apple");
+    setSubmittedData({ itemDate, itemName, itemCount, itemDetail });
   };
 
   return (
     <div className="LogData">
       <form onSubmit={handleSubmit}>
+        <label>Date </label>
         <input
-          type="datetime-local"
-          name="date-time"
+          type="date"
+          name="date"
+          value={itemDate}
           id="date_time_id"
-          onChange={handleChange}
+          onChange={(e) => setItemDate(e.target.value)}
         />
-        <input type="text" name="" id="" />
-        <input type="number" name="" id="" />
-        <input type="text" name="Description" id="" />
-        <input type="submit" value="Add" />
-      </form>
 
-      <div className="log-table">
-        <div className="log-table-row">
-          <div className="log-table-col">{time}</div>
-          <div className="log-table-col">{item}</div>
-          <div className="log-table-col">5</div>
-          <div className="log-table-col">5</div>
+        <label>Item </label>
+        <input
+          type="text"
+          name="item"
+          value={itemName}
+          id=""
+          onChange={(e) => setItemName(e.target.value)}
+        />
+
+        <br />
+        <label>Count </label>
+        <input
+          type="number"
+          name="count"
+          value={itemCount}
+          id=""
+          onChange={(e) => setItemCount(e.target.value)}
+        />
+        <label>Detail </label>
+        <input
+          type="text"
+          name="detail"
+          value={itemDetail}
+          id=""
+          onChange={(e) => setItemDetail(e.target.value)}
+        />
+        <button type="submit">Add</button>
+      </form>
+      {submittedData && (
+        <div className="log-table">
+          <div className="log-table-row">
+            <div className="log-table-col">{submittedData.itemDate}</div>
+            <div className="log-table-col">{submittedData.itemName}</div>
+            <div className="log-table-col">{submittedData.itemCount}</div>
+            <div className="log-table-col">{submittedData.itemDetail}</div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
