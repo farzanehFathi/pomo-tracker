@@ -35,13 +35,13 @@ export default function LogData() {
   return (
     <div className="LogData">
       <form onSubmit={handleSubmit}>
-        <label>Date </label>
         <input
           required
+          placeholder="select the date"
           type="date"
           name="date"
           value={itemDate}
-          id="date_time_id"
+          id=""
           onChange={(e) => setItemDate(e.target.value)}
         />
 
@@ -60,19 +60,19 @@ export default function LogData() {
           <option value="🍇">🍇</option>
         </select>
 
-        <br />
-        <label>Count </label>
         <input
           required
+          placeholder="enter pomo numbers"
           type="number"
           name="count"
           value={itemCount}
           id=""
           onChange={(e) => setItemCount(e.target.value)}
         />
-        <label>Detail </label>
+
         <input
           required
+          placeholder="Add description"
           type="text"
           name="detail"
           value={itemDetail}
@@ -83,14 +83,17 @@ export default function LogData() {
       </form>
 
       <div className="log-table">
-        {savedData.map((entry, index) => (
-          <div className="log-table-row" key={index}>
-            <div className="log-table-col">{entry.formattedDate}</div>
-            <div className="log-table-col">{entry.itemName}</div>
-            <div className="log-table-col">{entry.itemCount}</div>
-            <div className="log-table-col">{entry.itemDetail}</div>
-          </div>
-        ))}
+        {savedData
+          .slice()
+          .reverse()
+          .map((entry, index) => (
+            <div className="log-table-row" key={index}>
+              <div className="log-table-col">{entry.formattedDate}</div>
+              <div className="log-table-col">{entry.itemName}</div>
+              <div className="log-table-col">{entry.itemCount}</div>
+              <div className="log-table-col">{entry.itemDetail}</div>
+            </div>
+          ))}
       </div>
     </div>
   );
