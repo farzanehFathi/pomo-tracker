@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./LogData.css";
 
 export default function LogData() {
@@ -6,14 +6,19 @@ export default function LogData() {
   const [itemDate, setItemDate] = useState("");
   const [itemCount, setItemCount] = useState("");
   const [itemDetail, setItemDetail] = useState("");
-  const [submittedData, setSubmittedData] = useState([]);
+  const [savedData, setSavedData] = useState(
+    JSON.parse(localStorage.getItem("savedFormData")) || []
+  );
 
-  const dataToSave = JSON.stringify(submittedData);
+  // Update Local Storage When Data Changes
+  useEffect(() => {
+    localStorage.setItem("savedFormData", JSON.stringify(savedData));
+  }, [savedData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newEntry = { itemDate, itemName, itemCount, itemDetail };
-    setSubmittedData([...submittedData, newEntry]);
+    setSavedData([...savedData, newEntry]);
     setItemName("");
     setItemDate("");
     setItemCount("");
@@ -69,8 +74,9 @@ export default function LogData() {
         />
         <button type="submit">Add</button>
       </form>
+
       <div className="log-table">
-        {submittedData.map((entry, index) => (
+        {savedData.map((entry, index) => (
           <div className="log-table-row" key={index}>
             <div className="log-table-col">{entry.itemDate}</div>
             <div className="log-table-col">{entry.itemName}</div>
