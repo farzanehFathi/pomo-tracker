@@ -38,7 +38,6 @@ export default function LogData() {
           onChange={(e) => setItemDate(e.target.value)}
         />
 
-        <label>Select Item </label>
         <select
           required
           value={itemName}
@@ -46,6 +45,7 @@ export default function LogData() {
           onChange={(e) => setItemName(e.target.value)}
         >
           {" "}
+          <option value="">Choose Your Pomo</option>
           <option value="🍅">🍅</option>
           <option value="🍋">🍋</option>
           <option value="🥦">🥦</option>
