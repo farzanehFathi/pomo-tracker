@@ -12,12 +12,19 @@ export default function LogData() {
 
   // Update Local Storage When Data Changes
   useEffect(() => {
+    console.log(savedData);
     localStorage.setItem("savedFormData", JSON.stringify(savedData));
   }, [savedData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newEntry = { itemDate, itemName, itemCount, itemDetail };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+    }).format(new Date(itemDate));
+
+    const newEntry = { formattedDate, itemName, itemCount, itemDetail };
     setSavedData([...savedData, newEntry]);
     setItemName("");
     setItemDate("");
@@ -78,7 +85,7 @@ export default function LogData() {
       <div className="log-table">
         {savedData.map((entry, index) => (
           <div className="log-table-row" key={index}>
-            <div className="log-table-col">{entry.itemDate}</div>
+            <div className="log-table-col">{entry.formattedDate}</div>
             <div className="log-table-col">{entry.itemName}</div>
             <div className="log-table-col">{entry.itemCount}</div>
             <div className="log-table-col">{entry.itemDetail}</div>
