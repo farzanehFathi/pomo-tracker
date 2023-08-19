@@ -8,6 +8,8 @@ export default function LogData() {
   const [itemDetail, setItemDetail] = useState("");
   const [submittedData, setSubmittedData] = useState([]);
 
+  const dataToSave = JSON.stringify(submittedData);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const newEntry = { itemDate, itemName, itemCount, itemDetail };
@@ -23,6 +25,7 @@ export default function LogData() {
       <form onSubmit={handleSubmit}>
         <label>Date </label>
         <input
+          required
           type="date"
           name="date"
           value={itemDate}
@@ -30,18 +33,25 @@ export default function LogData() {
           onChange={(e) => setItemDate(e.target.value)}
         />
 
-        <label>Item </label>
-        <input
-          type="text"
-          name="item"
+        <label>Select Item </label>
+        <select
+          required
           value={itemName}
           id=""
           onChange={(e) => setItemName(e.target.value)}
-        />
+        >
+          {" "}
+          <option value="🍅">🍅</option>
+          <option value="🍋">🍋</option>
+          <option value="🥦">🥦</option>
+          <option value="🍉">🍉</option>
+          <option value="🍇">🍇</option>
+        </select>
 
         <br />
         <label>Count </label>
         <input
+          required
           type="number"
           name="count"
           value={itemCount}
@@ -50,6 +60,7 @@ export default function LogData() {
         />
         <label>Detail </label>
         <input
+          required
           type="text"
           name="detail"
           value={itemDetail}
