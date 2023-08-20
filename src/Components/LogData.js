@@ -2,17 +2,15 @@ import { useEffect, useState } from "react";
 import "./LogData.css";
 
 export default function LogData() {
-  const [itemName, setItemName] = useState("");
   const [itemDate, setItemDate] = useState("");
+  const [itemName, setItemName] = useState("");
   const [itemCount, setItemCount] = useState("");
   const [itemDetail, setItemDetail] = useState("");
   const [savedData, setSavedData] = useState(
-    JSON.parse(localStorage.getItem("savedFormData")) || []
+    JSON.parse(localStorage.getItem("savdeFormData")) || []
   );
 
-  // Update Local Storage When Data Changes
   useEffect(() => {
-    console.log(savedData);
     localStorage.setItem("savedFormData", JSON.stringify(savedData));
   }, [savedData]);
 
@@ -26,8 +24,8 @@ export default function LogData() {
 
     const newEntry = { formattedDate, itemName, itemCount, itemDetail };
     setSavedData([...savedData, newEntry]);
-    setItemName("");
     setItemDate("");
+    setItemName("");
     setItemCount("");
     setItemDetail("");
   };
@@ -37,48 +35,40 @@ export default function LogData() {
       <form onSubmit={handleSubmit}>
         <input
           required
-          placeholder="select the date"
           type="date"
-          name="date"
+          name="itemData"
           value={itemDate}
           id=""
           onChange={(e) => setItemDate(e.target.value)}
         />
-
         <select
           required
+          name="itemName"
           value={itemName}
-          id=""
           onChange={(e) => setItemName(e.target.value)}
         >
-          {" "}
-          <option value="">Choose Your Pomo</option>
+          <option value="">Choose a pomo</option>
           <option value="🍅">🍅</option>
           <option value="🍋">🍋</option>
           <option value="🥦">🥦</option>
-          <option value="🍉">🍉</option>
-          <option value="🍇">🍇</option>
         </select>
-
         <input
           required
-          placeholder="enter pomo numbers"
           type="number"
-          name="count"
+          name="itemCount"
           value={itemCount}
-          id=""
+          placeholder="Enter Pomo number"
           onChange={(e) => setItemCount(e.target.value)}
         />
-
         <input
           required
-          placeholder="Add description"
           type="text"
-          name="detail"
+          name="itemDetail"
           value={itemDetail}
-          id=""
+          placeholder="Add description"
           onChange={(e) => setItemDetail(e.target.value)}
         />
+
         <button type="submit">Add</button>
       </form>
 
